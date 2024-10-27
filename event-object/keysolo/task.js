@@ -15,17 +15,42 @@ class Game {
     this.winsElement.textContent = 0;
     this.lossElement.textContent = 0;
   }
+//   registerEvents() {
+//     document.addEventListener('keydown', (event) => {
+//         const currentElement = document.querySelector('.current-symbol');
+//         this.currentSymbol = currentElement.textContent; 
 
-  registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода символа вызываем this.success()
-      При неправильном вводе символа - this.fail();
-      DOM-элемент текущего символа находится в свойстве this.currentSymbol.
-     */
-  }
+//         const inputChar = event.key; 
+//         if (inputChar.toLowerCase() === this.currentSymbol.toLowerCase()) {
+//             this.success();
+//         } else {
+//             this.fail();
+//         }
+//     });
+// }
+registerEvents() {
+  document.addEventListener('input', (event) => {
+      const inputChar = event.data; 
+      const currentElement = this.currentSymbol; 
+
+      if (inputChar && inputChar.toLowerCase() === currentElement.toLowerCase()) {
+          this.success();
+      } else {
+          this.fail();
+      }
+  });
+}
+
+success() {
+  this.wins++;
+  console.log('Успех! Побед: ' + this.wins);
+}
+
+fail() {
+  this.losses++;
+  console.log('Неудача! Поражений: ' + this.losses);
+}
+
 
   success() {
     if(this.currentSymbol.classList.contains("symbol_current")) this.currentSymbol.classList.remove("symbol_current");
