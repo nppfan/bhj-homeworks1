@@ -15,25 +15,13 @@ class Game {
     this.winsElement.textContent = 0;
     this.lossElement.textContent = 0;
   }
-//   registerEvents() {
-//     document.addEventListener('keydown', (event) => {
-//         const currentElement = document.querySelector('.current-symbol');
-//         this.currentSymbol = currentElement.textContent; 
 
-//         const inputChar = event.key; 
-//         if (inputChar.toLowerCase() === this.currentSymbol.toLowerCase()) {
-//             this.success();
-//         } else {
-//             this.fail();
-//         }
-//     });
-// }
 registerEvents() {
   document.addEventListener('keydown', (event) => {
       const currentElement = document.querySelector('.current-symbol');
-      this.currentSymbol = currentElement.textContent; // Получаем текущий символ
+      this.currentSymbol = currentElement.textContent; 
 
-      const inputChar = event.key; // Получаем символ, который ввёл пользователь
+      const inputChar = event.key; 
 
       if (inputChar.toLowerCase() === this.currentSymbol.toLowerCase()) {
           this.success();
@@ -45,8 +33,6 @@ registerEvents() {
 
 success() {
   this.wins++;
-  // Логика для обработки успешного ввода
-  // Например, генерация нового символа
   console.log('Успех! Побед: ' + this.wins);
   if (this.wins >= this.maxWins) {
       console.log('Поздравляем! Вы выиграли игру!');
@@ -55,7 +41,7 @@ success() {
 
 fail() {
   this.losses++;
-  // Логика для обработки неудачного ввода
+ 
   console.log('Неудача! Поражений: ' + this.losses);
   if (this.losses >= this.maxLosses) {
       console.log('Игра окончена! Вы проиграли.');
