@@ -29,11 +29,13 @@ class Game {
 //     });
 // }
 registerEvents() {
-  document.addEventListener('input', (event) => {
-      const inputChar = event.data; 
-      const currentElement = this.currentSymbol; 
+  document.addEventListener('keydown', (event) => {
+      const currentElement = document.querySelector('.current-symbol');
+      this.currentSymbol = currentElement.textContent; // Получаем текущий символ
 
-      if (inputChar && inputChar.toLowerCase() === currentElement.toLowerCase()) {
+      const inputChar = event.key; // Получаем символ, который ввёл пользователь
+
+      if (inputChar.toLowerCase() === this.currentSymbol.toLowerCase()) {
           this.success();
       } else {
           this.fail();
@@ -43,39 +45,23 @@ registerEvents() {
 
 success() {
   this.wins++;
+  // Логика для обработки успешного ввода
+  // Например, генерация нового символа
   console.log('Успех! Побед: ' + this.wins);
+  if (this.wins >= this.maxWins) {
+      console.log('Поздравляем! Вы выиграли игру!');
+  }
 }
 
 fail() {
   this.losses++;
+  // Логика для обработки неудачного ввода
   console.log('Неудача! Поражений: ' + this.losses);
+  if (this.losses >= this.maxLosses) {
+      console.log('Игра окончена! Вы проиграли.');
+  }
 }
 
-
-  success() {
-    if(this.currentSymbol.classList.contains("symbol_current")) this.currentSymbol.classList.remove("symbol_current");
-    this.currentSymbol.classList.add('symbol_correct');
-    this.currentSymbol = this.currentSymbol.nextElementSibling;
-
-    if (this.currentSymbol !== null) {
-      this.currentSymbol.classList.add('symbol_current');
-      return;
-    }
-
-    if (++this.winsElement.textContent === 10) {
-      alert('Победа!');
-      this.reset();
-    }
-    this.setNewWord();
-  }
-
-  fail() {
-    if (++this.lossElement.textContent === 5) {
-      alert('Вы проиграли!');
-      this.reset();
-    }
-    this.setNewWord();
-  }
 
   setNewWord() {
     const word = this.getWord();
