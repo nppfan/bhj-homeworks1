@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     tabContainers.forEach(container => {
         const tabs = container.querySelectorAll('.tab');
-        const contents = document.querySelectorAll('.tab__content');
+        const contents = container.nextElementSibling.querySelectorAll('.tab__content'); 
 
         tabs.forEach((tab, index) => {
             tab.addEventListener('click', () => {

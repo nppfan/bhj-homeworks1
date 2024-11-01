@@ -16,38 +16,43 @@ class Game {
     this.lossElement.textContent = 0;
   }
 
-registerEvents() {
-  document.addEventListener('keydown', (event) => {
-      const currentElement = document.querySelector('.current-symbol');
-      this.currentSymbol = currentElement.textContent; 
-
-      const inputChar = event.key; 
-
-      if (inputChar.toLowerCase() === this.currentSymbol.toLowerCase()) {
-          this.success();
-      } else {
-          this.fail();
-      }
-  });
+  registerEvents() {
+    document.addEventListener('keyup', (event) => {
+        const inputChar = event.key;
+        if (inputChar.toLowerCase() === this.currentSymbol.textContent.toLowerCase()) {
+            this.success();
+        } else {
+            this.fail();
+        }
+    });
 }
 
-success() {
-  this.wins++;
-  console.log('Успех! Побед: ' + this.wins);
-  if (this.wins >= this.maxWins) {
-      console.log('Поздравляем! Вы выиграли игру!');
+
+
+  success() {
+    if(this.currentSymbol.classList.contains("symbol_current")) this.currentSymbol.classList.remove("symbol_current");
+    this.currentSymbol.classList.add('symbol_correct');
+    this.currentSymbol = this.currentSymbol.nextElementSibling;
+
+    if (this.currentSymbol !== null) {
+      this.currentSymbol.classList.add('symbol_current');
+      return;
+    }
+
+    if (++this.winsElement.textContent === 10) {
+      alert('Победа!');
+      this.reset();
+    }
+    this.setNewWord();
   }
-}
 
-fail() {
-  this.losses++;
- 
-  console.log('Неудача! Поражений: ' + this.losses);
-  if (this.losses >= this.maxLosses) {
-      console.log('Игра окончена! Вы проиграли.');
+  fail() {
+    if (++this.lossElement.textContent === 5) {
+      alert('Вы проиграли!');
+      this.reset();
+    }
+    this.setNewWord();
   }
-}
-
 
   setNewWord() {
     const word = this.getWord();
@@ -88,4 +93,3 @@ fail() {
 }
 
 new Game(document.getElementById('game'))
-
